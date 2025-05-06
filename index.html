@@ -18,6 +18,16 @@
             padding: 20px;
             font-size: 24px;
         }
+        .status {
+            background: #fff;
+            margin: 20px auto;
+            padding: 15px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+        }
         .meal {
             background: white;
             margin: 20px auto;
@@ -45,55 +55,46 @@
             font-size: 16px;
             margin: 5px 0;
         }
-        .macros {
-            background: white;
-            margin: 20px auto;
-            padding: 20px;
-            width: 80%;
-            max-width: 600px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            font-size: 18px;
-        }
     </style>
 </head>
 <body>
 <header>
     <h1>Dieta 2787 Kcal per Massa Muscolare</h1>
 </header>
-<section class="macros">
-    <h2>Macronutrienti giornalieri consigliati</h2>
-    <p><strong>Calorie:</strong> ~2787 kcal</p>
-    <p><strong>Proteine:</strong> ~130-140g (1.9-2.1g/kg per 67kg di peso)</p>
-    <p><strong>Carboidrati:</strong> ~420-430g</p>
-    <p><strong>Grassi:</strong> ~55-65g (0.8-1g/kg per 67kg di peso)</p>
+
+<section class="status">
+    <h2>Stato Giornaliero</h2>
+    <p><strong>Hai già mangiato:</strong> <span id="consumati-calorie">0</span> cal, <span id="consumati-carb">0</span>g carboidrati, <span id="consumati-proteine">0</span>g proteine, <span id="consumati-grassi">0</span>g grassi.</p>
+    <p><strong>Devi ancora mangiare:</strong> <span id="rimanenti-calorie">2787</span> cal, <span id="rimanenti-carb">430</span>g carboidrati, <span id="rimanenti-proteine">140</span>g proteine, <span id="rimanenti-grassi">65</span>g grassi.</p>
 </section>
 
+<!-- Colazione -->
 <section class="meal">
     <h2>🥣 Colazione (~650 kcal)</h2>
     <ul>
         <li>
             <label>Carboidrati: </label>
-            <select>
-                <option>90g fiocchi d'avena integrali - 342 kcal</option>
-                <option>4 Weetabix - 261 kcal</option>
-                <option>90g fiocchi di riso - 333 kcal</option>
-                <option>90g farro soffiato - 315 kcal</option>
-                <option>90g muesli senza zuccheri - 342 kcal</option>
+            <select id="colazione-carbo">
+                <option>90g fiocchi d'avena integrali</option>
+                <option>4 Weetabix</option>
+                <option>90g fiocchi di riso</option>
+                <option>90g farro soffiato</option>
+                <option>90g muesli senza zuccheri</option>
             </select>
         </li>
         <li>🥛 250ml latte parzialmente scremato - 103 kcal</li>
         <li>
             <label>Proteine: </label>
-            <select>
-                <option>25g proteine in polvere - 90 kcal</option>
-                <option>150g yogurt greco 0% - 81 kcal</option>
-                <option>50g Ricotta magra - 75 kcal</option>
+            <select id="colazione-prot">
+                <option>25g proteine in polvere</option>
+                <option>150g yogurt greco 0%</option>
+                <option>50g Ricotta magra</option>
             </select>
         </li>
         <li>🍌 1 banana - 130 kcal</li>
         <li>10g miele - 47 kcal</li>
     </ul>
+    <button onclick="salva('colazione')">Salva colazione</button>
 </section>
 
 <section class="meal">
@@ -102,25 +103,26 @@
         <li>40g pane integrale - 100 kcal</li>
         <li>
             <label>Fonte proteica: </label>
-            <select>
-                <option>40g bresaola - 80 kcal</option>
-                <option>40g fesa di tacchino - 80 kcal</option>
-                <option>150g yogurt greco 0% - 81 kcal</option>
-                <option>2 uova sode - 140 kcal</option>
-                <option>40g fiocchi di latte light - 45 kcal</option>
-                <option>150g skyr - 80 kcal</option>
+            <select id="spuntino-prot">
+                <option>40g bresaola</option>
+                <option>40g fesa di tacchino</option>
+                <option>150g yogurt greco 0%</option>
+                <option>2 uova sode</option>
+                <option>40g fiocchi di latte light</option>
+                <option>150g skyr</option>
             </select>
         </li>
         <li>
             <label>Grassi buoni: </label>
-            <select>
-                <option>15g mandorle - 90 kcal</option>
-                <option>15g noci - 90 kcal</option>
-                <option>1 cucchiaio burro di arachidi - 90 kcal</option>
+            <select id="spuntino-fat">
+                <option>15g mandorle</option>
+                <option>15g noci</option>
+                <option>1 cucchiaio burro di arachidi</option>
             </select>
         </li>
         <li>1 frutto (mela o pera) - 80 kcal</li>
     </ul>
+    <button onclick="salva('spuntino')">Salva spuntino</button>
 </section>
 
 <section class="meal">
@@ -128,25 +130,26 @@
     <ul>
         <li>
             <label>Carboidrati: </label>
-            <select>
-                <option>120g riso basmati - 425 kcal</option>
-                <option>120g pasta integrale - 415 kcal</option>
-                <option>90g quinoa - 315 kcal</option>
-                <option>140g farro - 448 kcal</option>
+            <select id="pranzo-carbo">
+                <option>120g riso basmati</option>
+                <option>120g pasta integrale</option>
+                <option>90g quinoa</option>
+                <option>140g farro</option>
             </select>
         </li>
         <li>
             <label>Proteine: </label>
-            <select>
-                <option>120g petto di pollo - 130 kcal</option>
-                <option>110g manzo magro - 165 kcal</option>
-                <option>150g merluzzo - 113 kcal</option>
+            <select id="pranzo-prot">
+                <option>120g petto di pollo</option>
+                <option>110g manzo magro</option>
+                <option>150g merluzzo</option>
             </select>
         </li>
         <li>Verdure a piacere - 50 kcal</li>
         <li>12g olio EVO - 108 kcal</li>
         <li>25g parmigiano o grana padano - 100 kcal</li>
     </ul>
+    <button onclick="salva('pranzo')">Salva pranzo</button>
 </section>
 
 <section class="meal">
@@ -154,33 +157,34 @@
     <ul>
         <li>
             <label>Carboidrati: </label>
-            <select>
-                <option>3 gallette di riso + 1 cucchiaino di miele 🍯 - 120 kcal</option>
-                <option>40g pane bianco o integrale - 100 kcal</option>
-                <option>200ml latte parzialmente scremato 🥛 - 82 kcal</option>
-                <option>35g farina d'avena o crema di riso - 130 kcal</option>
+            <select id="preworkout-carbo">
+                <option>3 gallette di riso + 1 cucchiaino di miele</option>
+                <option>40g pane bianco o integrale</option>
+                <option>200ml latte parzialmente scremato</option>
+                <option>35g farina d'avena o crema di riso</option>
             </select>
         </li>
         <li>
             <label>Fonte proteica: </label>
-            <select>
-                <option>25g proteine in polvere - 90 kcal</option>
-                <option>80g yogurt greco 0% - 43 kcal</option>
-                <option>40g fesa di tacchino - 80 kcal</option>
-                <option>40g fiocchi di latte - 45 kcal</option>
-                <option>2 albumi cotti (liquidi pastorizzati) - 34 kcal</option>
+            <select id="preworkout-prot">
+                <option>25g proteine in polvere</option>
+                <option>80g yogurt greco 0%</option>
+                <option>40g fesa di tacchino</option>
+                <option>40g fiocchi di latte</option>
+                <option>2 albumi cotti (liquidi pastorizzati)</option>
             </select>
         </li>
         <li>
             <label>Grassi: </label>
-            <select>
-                <option>5g cacao amaro per migliorare la vasodilatazione - 20 kcal</option>
-                <option>1 cucchiaino di burro di arachidi 🥜 - 32 kcal</option>
-                <option>1 dattero o mezzo cucchiaino di miele 🍯 - 23 kcal</option>
-                <option>10g semi di lino o zucca - 50 kcal</option>
+            <select id="preworkout-fat">
+                <option>5g cacao amaro</option>
+                <option>1 cucchiaino di burro di arachidi</option>
+                <option>1 dattero o mezzo cucchiaino di miele</option>
+                <option>10g semi di lino o zucca</option>
             </select>
         </li>
     </ul>
+    <button onclick="salva('preworkout')">Salva pre-workout</button>
 </section>
 
 <section class="meal">
@@ -188,25 +192,211 @@
     <ul>
         <li>
             <label>Carboidrati: </label>
-            <select>
-                <option>150g patate dolci - 132 kcal</option>
-                <option>110g riso integrale - 394 kcal</option>
+            <select id="cena-carbo">
+                <option>150g patate dolci</option>
+                <option>110g riso integrale</option>
             </select>
         </li>
         <li>
             <label>Proteine: </label>
-            <select>
-                <option>150g salmone - 300 kcal</option>
-                <option>120g pollo - 132 kcal</option>
-                <option>110g manzo - 165 kcal</option>
+            <select id="cena-prot">
+                <option>150g salmone</option>
+                <option>120g pollo</option>
+                <option>110g manzo</option>
             </select>
         </li>
-        <li>150g yogurt greco o 25g caseina → (~80 kcal)</li>
+        <li>150g yogurt greco o 25g caseina - 80 kcal</li>
         <li>12g olio EVO - 108 kcal</li>
         <li>10g semi di zucca o girasole - 50 kcal</li>
     </ul>
+    <button onclick="salva('cena')">Salva cena</button>
 </section>
+<script>
+    let consumati = { cal: 0, carb: 0, prot: 0, fat: 0 };
+    let totali = { cal: 2787, carb: 430, prot: 140, fat: 65 };
+
+    const alimenti = {
+        colazione: {
+            carbo: {
+                "90g fiocchi d'avena integrali": { kcal: 342, carb: 60, prot: 10, fat: 7 },
+                "4 Weetabix": { kcal: 261, carb: 48, prot: 8, fat: 2 },
+                "90g fiocchi di riso": { kcal: 333, carb: 74, prot: 6, fat: 1 },
+                "90g farro soffiato": { kcal: 315, carb: 66, prot: 9, fat: 2 },
+                "90g muesli senza zuccheri": { kcal: 342, carb: 57, prot: 9, fat: 5 }
+            },
+            prot: {
+                "25g proteine in polvere": { kcal: 90, carb: 2, prot: 20, fat: 1 },
+                "150g yogurt greco 0%": { kcal: 81, carb: 5, prot: 15, fat: 0 },
+                "50g Ricotta magra": { kcal: 75, carb: 2, prot: 7, fat: 5 }
+            },
+            extra: [
+                { kcal: 103, carb: 10, prot: 8, fat: 3 }, // latte
+                { kcal: 130, carb: 30, prot: 1, fat: 0 }, // banana
+                { kcal: 47, carb: 12, prot: 0, fat: 0 }   // miele
+            ]
+        },
+        spuntino: {
+            prot: {
+                "40g bresaola": { kcal: 80, carb: 0, prot: 15, fat: 3 },
+                "40g fesa di tacchino": { kcal: 80, carb: 0, prot: 16, fat: 1 },
+                "150g yogurt greco 0%": { kcal: 81, carb: 5, prot: 15, fat: 0 },
+                "2 uova sode": { kcal: 140, carb: 1, prot: 12, fat: 10 },
+                "40g fiocchi di latte light": { kcal: 45, carb: 2, prot: 7, fat: 1 },
+                "150g skyr": { kcal: 80, carb: 5, prot: 15, fat: 0 }
+            },
+            fat: {
+                "15g mandorle": { kcal: 90, carb: 3, prot: 3, fat: 8 },
+                "15g noci": { kcal: 90, carb: 2, prot: 2, fat: 9 },
+                "1 cucchiaio burro di arachidi": { kcal: 90, carb: 3, prot: 4, fat: 8 }
+            },
+            extra: [
+                { kcal: 100, carb: 20, prot: 3, fat: 1 }, // 40g pane
+                { kcal: 80, carb: 20, prot: 1, fat: 0 }   // frutto
+            ]
+        },
+        pranzo: {
+            carbo: {
+                "120g riso basmati": { kcal: 425, carb: 88, prot: 9, fat: 1 },
+                "120g pasta integrale": { kcal: 415, carb: 85, prot: 14, fat: 2 },
+                "90g quinoa": { kcal: 315, carb: 58, prot: 11, fat: 5 },
+                "140g farro": { kcal: 448, carb: 85, prot: 15, fat: 2 }
+            },
+            prot: {
+                "120g petto di pollo": { kcal: 130, carb: 0, prot: 30, fat: 3 },
+                "110g manzo magro": { kcal: 165, carb: 0, prot: 30, fat: 6 },
+                "150g merluzzo": { kcal: 113, carb: 0, prot: 24, fat: 2 }
+            },
+            extra: [
+                { kcal: 50, carb: 10, prot: 2, fat: 0 }, // verdure
+                { kcal: 108, carb: 0, prot: 0, fat: 12 }, // 12g olio EVO
+                { kcal: 100, carb: 0, prot: 7, fat: 9 }   // 25g parmigiano
+            ]
+        },
+        preworkout: {
+            carbo: {
+                "3 gallette di riso + 1 cucchiaino di miele": { kcal: 120, carb: 25, prot: 2, fat: 0 },
+                "40g pane bianco o integrale": { kcal: 100, carb: 20, prot: 4, fat: 1 },
+                "200ml latte parzialmente scremato": { kcal: 82, carb: 12, prot: 6, fat: 3 },
+                "35g farina d'avena o crema di riso": { kcal: 130, carb: 24, prot: 3, fat: 2 }
+            },
+            prot: {
+                "25g proteine in polvere": { kcal: 90, carb: 2, prot: 20, fat: 1 },
+                "80g yogurt greco 0%": { kcal: 43, carb: 5, prot: 8, fat: 0 },
+                "40g fesa di tacchino": { kcal: 80, carb: 0, prot: 16, fat: 1 },
+                "40g fiocchi di latte": { kcal: 45, carb: 2, prot: 7, fat: 1 },
+                "2 albumi cotti (liquidi pastorizzati)": { kcal: 34, carb: 0, prot: 8, fat: 0 }
+            },
+            fat: {
+                "5g cacao amaro": { kcal: 20, carb: 3, prot: 2, fat: 1 },
+                "1 cucchiaino di burro di arachidi": { kcal: 32, carb: 1, prot: 1, fat: 3 },
+                "1 dattero o mezzo cucchiaino di miele": { kcal: 23, carb: 6, prot: 0, fat: 0 },
+                "10g semi di lino o zucca": { kcal: 50, carb: 2, prot: 3, fat: 4 }
+            }
+        },
+        cena: {
+            carbo: {
+                "150g patate dolci": { kcal: 132, carb: 30, prot: 3, fat: 0 },
+                "110g riso integrale": { kcal: 394, carb: 82, prot: 9, fat: 3 }
+            },
+            prot: {
+                "150g salmone": { kcal: 300, carb: 0, prot: 22, fat: 22 },
+                "120g pollo": { kcal: 132, carb: 0, prot: 30, fat: 4 },
+                "110g manzo": { kcal: 165, carb: 0, prot: 30, fat: 6 }
+            },
+            extra: [
+                { kcal: 80, carb: 4, prot: 7, fat: 4 }, // 150g yogurt greco
+                { kcal: 108, carb: 0, prot: 0, fat: 12 }, // 12g olio EVO
+                { kcal: 50, carb: 2, prot: 2, fat: 3 }   // 10g semi di zucca
+            ]
+        }
+    };
+
+
+    // Funzione per leggere i dati dal foglio Google
+    function fetchDatiGoogle() {
+        fetch("https://script.google.com/macros/s/INSERISCI-LA-TUA-URL/exec")
+            .then(response => response.json())
+            .then(data => {
+                consumati.cal = data.calorie;
+                consumati.carb = data.carb;
+                consumati.prot = data.prot;
+                consumati.fat = data.fat;
+                aggiornaStatus();
+            })
+            .catch(err => console.error("Errore nel recupero dei dati", err));
+    }
+
+    function calcolaPasto(tipo) {
+        const carbSel = document.querySelector(`#${tipo}-carbo`).value;
+        const protSel = document.querySelector(`#${tipo}-prot`).value;
+        const fatSel = document.querySelector(`#${tipo}-fat`)?.value;
+
+        let kcal = 0, carb = 0, prot = 0, fat = 0;
+
+        if (alimenti[tipo].carbo[carbSel]) {
+            const c = alimenti[tipo].carbo[carbSel];
+            kcal += c.kcal; carb += c.carb; prot += c.prot; fat += c.fat;
+        }
+
+        if (alimenti[tipo].prot[protSel]) {
+            const p = alimenti[tipo].prot[protSel];
+            kcal += p.kcal; carb += p.carb; prot += p.prot; fat += p.fat;
+        }
+
+        if (fatSel && alimenti[tipo].fat[fatSel]) {
+            const f = alimenti[tipo].fat[fatSel];
+            kcal += f.kcal; carb += f.carb; prot += f.prot; fat += f.fat;
+        }
+
+        alimenti[tipo].extra?.forEach(e => {
+            kcal += e.kcal; carb += e.carb; prot += e.prot; fat += e.fat;
+        });
+
+        consumati.cal += kcal;
+        consumati.carb += carb;
+        consumati.prot += prot;
+        consumati.fat += fat;
+
+        aggiornaStatus();
+
+        return { kcal, carb, prot, fat };
+    }
+
+    function aggiornaStatus() {
+        document.getElementById("consumati-calorie").innerText = consumati.cal;
+        document.getElementById("consumati-carb").innerText = consumati.carb;
+        document.getElementById("consumati-proteine").innerText = consumati.prot;
+        document.getElementById("consumati-grassi").innerText = consumati.fat;
+
+        document.getElementById("rimanenti-calorie").innerText = totali.cal - consumati.cal;
+        document.getElementById("rimanenti-carb").innerText = totali.carb - consumati.carb;
+        document.getElementById("rimanenti-proteine").innerText = totali.prot - consumati.prot;
+        document.getElementById("rimanenti-grassi").innerText = totali.fat - consumati.fat;
+    }
+
+    function salva(tipo) {
+        const valori = calcolaPasto(tipo);
+
+        fetch("https://script.google.com/macros/s/AKfycbwJ83TFKnoiOnu94jkmYIHe2nmWSYaRu4cPRP5OE-D1qHb3ebEcGEIAfekK1ibUkZoZ/exec", {
+            method: "POST",
+            body: JSON.stringify({
+                pasto: tipo,
+                kcal: valori.kcal,
+                carb: valori.carb,
+                prot: valori.prot,
+                fat: valori.fat
+            }),
+            headers: { "Content-Type": "application/json" }
+        })
+            .then(r => r.text())
+            .then(txt => alert(`✅ ${tipo} salvata!\nCalorie: ${valori.kcal}\nCarb: ${valori.carb}g\nProt: ${valori.prot}g\nFat: ${valori.fat}g`))
+            .catch(err => alert("Errore nel salvataggio"));
+    }
+
+    // Carica i dati iniziali al caricamento della pagina
+    window.onload = fetchDatiGoogle;
+
+</script>
 
 </body>
 </html>
-
